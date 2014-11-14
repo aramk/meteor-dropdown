@@ -1,8 +1,0 @@
-{
-  "name": "dropdown",
-  "description": "A reactive dropdown widget for Meteor.",
-  "homepage": "https://github.com/aramk/meteor-dropdown",
-  "author": "Aram Kocharyan (aramk.com)",
-  "version": "0.1.0",
-  "git": "https://github.com/aramk/meteor-dropdown.git"
-}

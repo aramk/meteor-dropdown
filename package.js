@@ -1,7 +1,7 @@
 Package.describe({
   name: 'aramk:dropdown',
   summary: 'A reactive dropdown widget',
-  version: '0.2.1',
+  version: '0.2.2',
   git: 'https://github.com/aramk/meteor-dropdown.git'
 });
 

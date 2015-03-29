@@ -10,7 +10,8 @@ Package.on_use(function(api) {
   api.use(['templating', 'underscore', 'jquery'], 'client');
   api.use([
     'semantic:ui-css@1.11.4',
-    'aldeed:autoform@4.0.7'
+    'aldeed:autoform@4.0.7',
+    'aramk:utility@0.8.1'
   ], 'client', {weak: true});
   api.add_files([
     'lib/dropdown.html',

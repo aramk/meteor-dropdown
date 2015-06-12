@@ -14,7 +14,7 @@ Package.on_use(function(api) {
     'aramk:utility@0.8.7'
   ], 'client', {weak: true});
   api.add_files([
-    'lib/dropdown.html',
-    'lib/dropdown.js'
+    'src/dropdown.html',
+    'src/dropdown.js'
   ], 'client');
 });

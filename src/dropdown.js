@@ -65,8 +65,8 @@ TemplateClass.setValue = function(em, value, force) {
   var template = Templates.getInstanceFromElement(em);
   // Sanitize the values to null if they are falsey so we don't attempt to set the value to null
   // when it's currently an empty string.
-  var existingValue = TemplateClass.getValue($em) || null;
-  value = value || null;
+  var existingValue = TemplateClass.getValue($em);
+  value = value != null ? value : null;
   var hasValue = TemplateClass.hasValue($em, value);
   if (force || value !== existingValue || !hasValue) {
     if (hasValue) {
@@ -142,7 +142,7 @@ function setUpDropdown(template) {
 
   // Save the last valid selection and restore it when possible after setup.
   var currentValue = TemplateClass.getValue($dropdown);
-  if (currentValue !== '') {
+  if (currentValue != null) {
     lastValue = currentValue;
   } else if (nextValue) {
     lastValue = nextValue;

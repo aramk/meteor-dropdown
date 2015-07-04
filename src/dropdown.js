@@ -206,16 +206,7 @@ function setUpDropdown(template) {
   if (value) {
     var result = TemplateClass.setValue($dropdown, value);
     if (result) {
-      // Without a defer, setting the value doesn't change the label. Only run this if we actually
-      // changed the value.
-      _.defer(function() {
-        // Avoid calling setValue if the template no longer exists and the dropdown has been
-        // removed.
-        var template = Templates.getInstanceFromElement($dropdown);
-        if (template) {
-          TemplateClass.setValue($dropdown, value, true);
-        }
-      });
+      TemplateClass.setValue($dropdown, value, true);
     }
     if (!TemplateClass.hasValue($dropdown, value)) {
       $dropdown.dropdown('set selected', '');

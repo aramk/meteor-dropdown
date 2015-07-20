@@ -15,16 +15,20 @@ TemplateClass.created = function() {
 
 TemplateClass.rendered = function() {
   this.isRendered = true;
-  var $dropdown = getDropdown(this).dropdown();
-  setUpDropdown();
-  var $input = getValueInput(this);
   var data = this.data;
   // "atts" is only provided when used with AutoForm.
   var atts = data.atts || data;
-  
+  var $input = getValueInput(this);
+
   var schemaKey = atts.schemaKey;
   schemaKey = schemaKey !== undefined ? schemaKey : true;
-  
+  if (!schemaKey) {
+    $input.removeAttr('data-schema-key');
+  }
+
+  var $dropdown = getDropdown(this).dropdown();
+  setUpDropdown();
+
   // Handle changes to the collection.
   var items = atts.items;
   var cursor = items;
@@ -45,10 +49,6 @@ TemplateClass.rendered = function() {
     });
     // Delay observing to avoid the added() callback firing for existing items.
     shouldObserve = true;
-  }
-
-  if (!schemaKey) {
-    $input.removeAttr('data-schema-key');
   }
 };
 

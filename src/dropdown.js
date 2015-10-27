@@ -105,7 +105,7 @@ TemplateClass.getItem = function(em, value) {
 
 TemplateClass.bindVarToElement = function(em, reactiveVariable, args) {
   var $em = resolveElement(em);
-  Templates.bindVarToElement($em, reactiveVariable, _.extend({
+  return Templates.bindVarToElement($em, reactiveVariable, _.extend({
     getValue: function() {
       return TemplateClass.getValue($em);
     },

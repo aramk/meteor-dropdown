@@ -11,7 +11,7 @@ Package.on_use(function(api) {
   api.use([
     'semantic:ui-css@2.0.8',
     'aldeed:autoform@5.1.2',
-    'urbanetic:utility@1.0.0'
+    'aramk:utility@0.8.7'
   ], 'client', {weak: true});
   api.add_files([
     'src/dropdown.html',

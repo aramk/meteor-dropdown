@@ -155,8 +155,8 @@ function setUpDropdown(template) {
     // AutoForm schema allowedValues.
     items = _.map(data.selectOptions, function(option) {
       var item = {};
-      item[valueAttr] = option.value;
-      item[labelAttr] = option.label;
+      Objects.setModifierProperty(item, valueAttr, option.value);
+      Objects.setModifierProperty(item, labelAttr, option.label);
       return item;
     });
   } else if (atts.items) {
@@ -170,14 +170,15 @@ function setUpDropdown(template) {
   // Sort items based on label.
   if (sorted) {
     items.sort(function(itemA, itemB) {
-      return itemA[labelAttr].toLowerCase() < itemB[labelAttr].toLowerCase() ? -1 : 1;
+      return Objects.getModifierProperty(itemA, labelAttr).toLowerCase() <
+          Objects.getModifierProperty(itemB, labelAttr).toLowerCase() ? -1 : 1;
     });
   }
 
   if (allowEmpty) {
     var emptyItem = {};
-    emptyItem[labelAttr] = emptyLabel;
-    emptyItem[valueAttr] = null;
+    Objects.setModifierProperty(item, labelAttr, emptyLabel);
+    Objects.setModifierProperty(item, valueAttr, null);
     items.unshift(emptyItem);
   }
   var $menu = template.$('.menu');
@@ -186,11 +187,11 @@ function setUpDropdown(template) {
     if (!Types.isObject(item)) {
       var value = item;
       item = {};
-      item[valueAttr] = value;
-      item[labelAttr] = value;
+      Objects.setModifierProperty(item, valueAttr, value);
+      Objects.setModifierProperty(item, labelAttr, value);
     }
-    var $item = $('<div class="item" data-value="' + item[valueAttr] + '">' + item[labelAttr] +
-        '</div>');
+    var $item = $('<div class="item" data-value="' + Objects.getModifierProperty(item, valueAttr) +
+        '">' + Objects.getModifierProperty(item, labelAttr) + '</div>');
     $menu.append($item);
   });
   $dropdown.trigger('load');

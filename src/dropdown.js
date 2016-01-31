@@ -177,8 +177,8 @@ function setUpDropdown(template) {
 
   if (allowEmpty) {
     var emptyItem = {};
-    Objects.setModifierProperty(item, labelAttr, emptyLabel);
-    Objects.setModifierProperty(item, valueAttr, null);
+    Objects.setModifierProperty(emptyItem, labelAttr, emptyLabel);
+    Objects.setModifierProperty(emptyItem, valueAttr, null);
     items.unshift(emptyItem);
   }
   var $menu = template.$('.menu');

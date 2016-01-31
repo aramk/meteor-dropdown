@@ -250,7 +250,9 @@ registerAutoForm();
 TemplateClass.helpers({
 
   cls: function() {
-    return this.name.trim().replace(/[\.\s]+/g, '-');
+    var cls = this.name.trim().replace(/[\.\s]+/g, '-');
+    if (this.cls) cls += ' ' + this.cls;
+    return cls;
   },
 
   setUpDropdown: function() {

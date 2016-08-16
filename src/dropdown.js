@@ -91,7 +91,8 @@ TemplateClass.getValue = function(em) {
   var value = null;
   if ($em.length > 0) {
     value = $em.dropdown('get value');
-    if (value.toString().trim().length === 0) {
+    var trimValue = value.toString().trim();
+    if (trimValue.length === 0 || trimValue === 'null') {
       value = null;
     }
   }

@@ -105,14 +105,14 @@ TemplateClass.getItem = function(em, value) {
 
 TemplateClass.bindVarToElement = function(em, reactiveVariable, args) {
   var $em = resolveElement(em);
-  return Templates.bindVarToElement($em, reactiveVariable, _.extend({
-    getValue: function() {
-      return TemplateClass.getValue($em);
-    },
-    setValue: function(value) {
-      TemplateClass.setValue($em, value);
-    }
-  }, args));
+  return Templates.bindVarToElement($em, reactiveVariable, _.extend(getTemplateBindArgs($em),
+      args));
+};
+
+TemplateClass.bindSessionToElement = function(em, sessionVarName, args) {
+  var $em = resolveElement(em);
+  return Templates.bindSessionToElement($em, sessionVarName, _.extend(getTemplateBindArgs($em),
+      args));
 };
 
 TemplateClass.isDropdown = function(em) {
@@ -229,6 +229,17 @@ function getTemplate(template) {
 
 function resolveElement(em) {
   return $(em).closest('.ui.dropdown');
+}
+
+function getTemplateBindArgs($em) {
+  return {
+    getValue: function() {
+      return TemplateClass.getValue($em);
+    },
+    setValue: function(value) {
+      TemplateClass.setValue($em, value);
+    }
+  }
 }
 
 function registerAutoForm() {

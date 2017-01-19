@@ -269,6 +269,10 @@ TemplateClass.helpers({
 
   setUpDropdown: function() {
     setUpDropdown();
+  },
+
+  placeholder() {
+    return this.placeholder || 'Select';
   }
 
 });

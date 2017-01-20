@@ -199,7 +199,7 @@ function setUpDropdown(template) {
 
   $dropdown.on('change', function() {
     var text = atts.text;
-    if (text !== undefined) {
+    if (text != null && atts.staticText) {
       $dropdown.dropdown('set text', text);
     }
   });
@@ -272,7 +272,7 @@ TemplateClass.helpers({
   },
 
   text() {
-    return Template.instance().atts.text;
+    return Template.instance().atts;
   }
 
 });

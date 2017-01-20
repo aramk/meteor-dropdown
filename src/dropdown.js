@@ -1,7 +1,7 @@
 var templateName = 'dropdown';
 var TemplateClass = Template[templateName];
 
-var defaultText = 'Select';
+var DEFAULT_TEXT = 'Select';
 
 TemplateClass.created = function() {
   var data = this.data;
@@ -11,15 +11,16 @@ TemplateClass.created = function() {
   }
   // The next value to set once the item becomes available.
   this.nextValue = null;
+  // "atts" is only provided when used with AutoForm.
+  this.atts = data.atts || data;
 };
 
 TemplateClass.rendered = function() {
   this.isRendered = true;
   var data = this.data;
-  // "atts" is only provided when used with AutoForm.
-  var atts = data.atts || data;
   var $input = getValueInput(this);
 
+  var atts = this.atts;
   var schemaKey = atts.schemaKey;
   schemaKey = schemaKey !== undefined ? schemaKey : true;
   if (!schemaKey) {
@@ -77,7 +78,7 @@ TemplateClass.setValue = function(em, value, force) {
         $em.dropdown('set selected', value);
       });
     } else {
-      $em.dropdown('set value', null).dropdown('set text', defaultText);
+      $em.dropdown('set value', null).dropdown('set text', template.atts.text || DEFAULT_TEXT);
     }
     template.nextValue = hasValue ? null : value;
     return true;
@@ -127,8 +128,7 @@ function setUpDropdown(template) {
   }
 
   var data = template.data;
-  // "atts" is only provided when used with AutoForm.
-  var atts = data.atts || data;
+  var atts = template.atts;
   var labelAttr = atts.labelAttr || 'name';
   var valueAttr = atts.valueAttr || '_id';
   var allowEmpty = atts.allowEmpty;
@@ -271,8 +271,8 @@ TemplateClass.helpers({
     setUpDropdown();
   },
 
-  placeholder() {
-    return this.placeholder || 'Select';
+  text() {
+    return Template.instance().atts.text;
   }
 
 });

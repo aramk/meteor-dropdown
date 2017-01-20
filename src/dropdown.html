@@ -1,10 +1,8 @@
 <template name="dropdown">
   <div class="ui selection dropdown {{cls}}" data-name="{{name}}">
     <input type="hidden" name="{{name}}" data-schema-key="{{name}}">
-
-    <div class="text">{{placeholder}}</div>
     <i class="dropdown icon"></i>
-
+    <div class="default text">{{text}}</div>
     <div class="menu"></div>
   </div>
   {{setUpDropdown}}

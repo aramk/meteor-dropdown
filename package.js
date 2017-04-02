@@ -7,7 +7,12 @@ Package.describe({
 
 Package.on_use(function(api) {
   api.versionsFrom('METEOR@0.9.0');
-  api.use(['templating', 'underscore', 'jquery'], 'client');
+  api.use([
+    'templating',
+    'underscore',
+    'jquery',
+    'ecmascript'
+  ], 'client');
   api.use([
     'semantic:ui-css@2.0.8',
     'aldeed:autoform@5.1.2',

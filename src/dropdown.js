@@ -18,7 +18,7 @@ TemplateClass.rendered = function() {
   const data = this.data;
   const $input = getValueInput(this);
 
-  const atts = getAtts();
+  const atts = getAtts(this);
   let schemaKey = atts.schemaKey;
   schemaKey = schemaKey !== undefined ? schemaKey : true;
   if (!schemaKey) {
@@ -79,7 +79,7 @@ TemplateClass.setValue = function(em, value, force) {
         $em.dropdown('set selected', value);
       });
     } else {
-      $em.dropdown('set value', null).dropdown('set text', getAtts().text || DEFAULT_TEXT);
+      $em.dropdown('set value', null).dropdown('set text', getAtts(template).text || DEFAULT_TEXT);
     }
     template.nextValue = hasValue ? null : value;
     return true;
@@ -129,7 +129,7 @@ function setUpDropdown(template) {
   }
 
   const data = Template.currentData();
-  const atts = getAtts();
+  const atts = getAtts(template);
   const labelAttr = atts.labelAttr || 'name';
   const valueAttr = atts.valueAttr || '_id';
   const allowEmpty = atts.allowEmpty;
@@ -230,10 +230,10 @@ function getTemplate(template) {
   return Templates.getNamedInstance(templateName, template);
 }
 
-function getAtts() {
+function getAtts(template) {
   const data = Template.currentData();
   // "atts" is only provided when used with AutoForm.
-  return data.atts || data;
+  return (data && data.atts) || template.data || data;
 }
 
 function resolveElement(em) {

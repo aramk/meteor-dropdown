@@ -11,8 +11,6 @@ TemplateClass.created = function() {
   }
   // The next value to set once the item becomes available.
   this.nextValue = null;
-  // "atts" is only provided when used with AutoForm.
-  this.atts = data.atts || data;
 };
 
 TemplateClass.rendered = function() {
@@ -20,7 +18,7 @@ TemplateClass.rendered = function() {
   const data = this.data;
   const $input = getValueInput(this);
 
-  const atts = this.atts;
+  const atts = getAtts();
   let schemaKey = atts.schemaKey;
   schemaKey = schemaKey !== undefined ? schemaKey : true;
   if (!schemaKey) {
@@ -28,7 +26,10 @@ TemplateClass.rendered = function() {
   }
 
   const $dropdown = getDropdown(this).dropdown();
-  setUpDropdown();
+  this.autorun(() => {
+    Template.currentData();
+    setUpDropdown();
+  });
 
   // Handle changes to the collection.
   const items = atts.items;
@@ -78,7 +79,7 @@ TemplateClass.setValue = function(em, value, force) {
         $em.dropdown('set selected', value);
       });
     } else {
-      $em.dropdown('set value', null).dropdown('set text', template.atts.text || DEFAULT_TEXT);
+      $em.dropdown('set value', null).dropdown('set text', getAtts().text || DEFAULT_TEXT);
     }
     template.nextValue = hasValue ? null : value;
     return true;
@@ -127,8 +128,8 @@ function setUpDropdown(template) {
     return;
   }
 
-  const data = template.data;
-  const atts = template.atts;
+  const data = Template.currentData();
+  const atts = getAtts();
   const labelAttr = atts.labelAttr || 'name';
   const valueAttr = atts.valueAttr || '_id';
   const allowEmpty = atts.allowEmpty;
@@ -162,7 +163,7 @@ function setUpDropdown(template) {
     });
   } else if (atts.items) {
     // Collection, cursor or array.
-    items = Collections.getItems(atts.items);
+    items = _.clone(Collections.getItems(atts.items));
   }
   if (!items) {
     throw new Error('Dropdown items not defined.');
@@ -175,6 +176,7 @@ function setUpDropdown(template) {
         Objects.getModifierProperty(itemB, labelAttr).toLowerCase() ? -1 : 1;
     });
   }
+
 
   if (allowEmpty) {
     const emptyItem = {};
@@ -228,6 +230,12 @@ function getTemplate(template) {
   return Templates.getNamedInstance(templateName, template);
 }
 
+function getAtts() {
+  const data = Template.currentData();
+  // "atts" is only provided when used with AutoForm.
+  return data.atts || data;
+}
+
 function resolveElement(em) {
   return $(em).closest('.ui.dropdown');
 }
@@ -272,7 +280,7 @@ TemplateClass.helpers({
   },
 
   text() {
-    return Template.instance().atts;
+    return getAtts().atts;
   }
 
 });

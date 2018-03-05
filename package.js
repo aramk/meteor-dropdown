@@ -14,7 +14,7 @@ Package.on_use(function(api) {
     'ecmascript'
   ], 'client');
   api.use([
-    'semantic:ui-css@2.0.8',
+    'semantic:ui-css@2.1.2',
     'aldeed:autoform@5.1.2',
     'urbanetic:utility@2.0.0'
   ], 'client', {weak: true});

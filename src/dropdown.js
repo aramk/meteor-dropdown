@@ -124,11 +124,11 @@ TemplateClass.isDropdown = function(em) {
 
 function setUpDropdown(template) {
   template = getTemplate(template);
-  if (!template.isRendered) {
-    return;
-  }
+  if (!template.isRendered) return;
 
-  const data = Template.currentData();
+  const data = getDataMaybe(template);
+  if (!data) return;
+
   const atts = getAtts(template);
   const labelAttr = atts.labelAttr || 'name';
   const valueAttr = atts.valueAttr || '_id';
@@ -231,9 +231,18 @@ function getTemplate(template) {
 }
 
 function getAtts(template) {
-  const data = Template.currentData();
+  const data = getDataMaybe(template);
   // "atts" is only provided when used with AutoForm.
   return (data && data.atts) || template.data || data;
+}
+
+function getDataMaybe(template) {
+  // If no view is available fall back to template data.
+  let data;
+  try {
+    data = Template.currentData();
+  } catch(e) {}
+  return data || template && template.data || null;
 }
 
 function resolveElement(em) {

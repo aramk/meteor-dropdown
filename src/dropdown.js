@@ -280,7 +280,9 @@ TemplateClass.helpers({
 
   cls() {
     let cls = this.name.trim().replace(/[\.\s]+/g, '-');
-    if (this.cls) cls += ' ' + this.cls;
+    if (this.cls) cls += ` ${this.cls}`;
+    const atts = getAtts(getTemplate());
+    if (atts.cls) cls += ` ${atts.cls}`;
     return cls;
   },
 

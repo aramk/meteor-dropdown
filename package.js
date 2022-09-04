@@ -1,11 +1,11 @@
 Package.describe({
   name: 'aramk:dropdown',
   summary: 'A reactive dropdown widget',
-  version: '1.0.2',
+  version: '2.0.0',
   git: 'https://github.com/aramk/meteor-dropdown.git'
 });
 
-Package.on_use(function(api) {
+Package.onUse(function(api) {
   api.versionsFrom('METEOR@1.6.1');
   api.use([
     'templating@1.3.2',
@@ -15,10 +15,10 @@ Package.on_use(function(api) {
   ], 'client');
   api.use([
     'semantic:ui-css@2.1.2',
-    'aldeed:autoform@5.1.2',
-    'urbanetic:utility@2.0.0'
+    'aldeed:autoform@7.0.0',
+    'urbanetic:utility@3.0.0'
   ], 'client', {weak: true});
-  api.add_files([
+  api.addFiles([
     'src/dropdown.html',
     'src/dropdown.js'
   ], 'client');
